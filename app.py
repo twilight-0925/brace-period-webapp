@@ -90,7 +90,7 @@ else:
         st.rerun()
     st.markdown(f'<div class="hero"><h2>{labels[kind]} 분석</h2><p>기존 Random Forest 모델 기반 고유주기 예측</p></div>', unsafe_allow_html=True)
     if kind == 'number':
-        number = st.number_input('가새 개수', min_value=0, max_value=100, value=5, step=1)
+        number = st.selectbox('가새 개수', options=[0, 2, 3, 4, 5, 6], index=4)
         frame = pd.DataFrame({'가새개수': [int(number)]})
         actual = NUMBER_DATA.get(int(number))
     elif kind == 'arrangement':
@@ -106,9 +106,9 @@ else:
     else:
         left, right = st.columns(2)
         with left:
-            height = st.number_input('가새 높이 (m)', min_value=0.01, value=5.5, step=0.25, format='%.2f')
+            height = st.number_input('가새 높이 (m)', min_value=4.0, max_value=7.0, value=5.5, step=0.25, format='%.2f')
         with right:
-            width = st.number_input('가새 폭 (m)', min_value=0.01, value=4.25, step=0.25, format='%.2f')
+            width = st.number_input('가새 폭 (m)', min_value=4.0, max_value=6.25, value=4.25, step=0.25, format='%.2f')
         st.caption('고정 조건: 가새 3개, 기본설계안, X형')
         frame = pd.DataFrame({'가새높이(m)': [float(height)], '가새폭(m)': [float(width)]})
         actual = SIZE_DATA.get((round(float(height), 4), round(float(width), 4)))
